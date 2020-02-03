@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div id="v-wrap">
+        <h1>Games</h1>
+        <form>
+            <input v-model="text" type="text"/>
+            <button type="submit" @click.prevent='sendMessage()'>Create</button>
+        </form>
+        <p>
+            <ul>
+                <li v-for="msg of messages">{{ msg }}</li>
+            </ul>
+        </p>
+    </div>
+    <script>
+    var app= new Vue({
+        el: '#v-wrap',
+        data: {
+            title: "Websockets Tester",
+            text:'',
+            messages: ['Pokemon', 'Teken 3'],
+            socket: null
+        },
+        methods:{
+            sendMessage() {
+                this.socket.emit('msgToServer', this.text)
+                this.text = ""
+            },
+            receiveMessage(msg) {
+                console.log('Received', msg);
+                this.messages.push(msg);
+            }
+        },
+        created() {
+            this.socket = io('http://localhost:3000');
+            this.socket.on('msgToClient', (msg) => {
+                console.log('Received', msg)
+                this.receiveMessage(msg)
+            })
+        }
+    })
+    </script>
+</body>
+</html>
