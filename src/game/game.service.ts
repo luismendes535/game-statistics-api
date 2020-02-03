@@ -30,4 +30,13 @@ export class GameService {
             }
         })
     }
+    async getGamesSortedAlph(): Promise<Game[]> {
+        return await this.gameModel.find({}, [], {
+            skip: 0, // Starting Row
+            limit: 100, // Ending Row
+            sort: {
+                name: 1 //Sort by Name ASC
+            }
+        })
+    }
 }

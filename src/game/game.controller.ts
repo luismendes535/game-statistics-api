@@ -22,9 +22,13 @@ export class GameController {
     create(@Body() createGameDto: CreateGameDto): Promise<Game> {
         return this.gameService.create(createGameDto)
     }
-
+    @Get('/sortAlph')
+    async getGamesSortedAlph(): Promise<Game[]> {
+        return this.gameService.getGamesSortedAlph();
+    }
     @Get('/top/:popularity')
-    async getTopGames(@Param('popularity', new ParseIntPipe()) popularity: GamePopularity) {
+    async getTopGames(@Param('popularity', new ParseIntPipe()) popularity: GamePopularity): Promise<Game[]> {
         return this.gameService.getTop(popularity)
     }
+
 }

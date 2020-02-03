@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GameModule } from './game/game.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AppGateway } from './app.gateway';
 import config from "./config/keys";
 
 @Module({
@@ -10,6 +11,6 @@ import config from "./config/keys";
     MongooseModule.forRoot(config.mongoURI),
     GameModule,],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AppGateway],
 })
 export class AppModule { }
