@@ -1,13 +1,12 @@
 FROM node:latest
 
-RUN mkdir -p /usr/src/app
 # Create app directory
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Install app dependencies
 # wildcard for both package.json and package-lock.json
-COPY package*.json ./
-
+COPY package*.json /usr/src/app
 RUN npm install
 
 # Bundle app source
