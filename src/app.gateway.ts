@@ -16,7 +16,6 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   async afterInit(server: Server) {
     this.logger.log('Initialized')
     const data = await this.gameModel.find()
-    this.logger.log(`DEBUG: ${data}`)
     this.wss.emit('msgToClient', data)
   }
 
